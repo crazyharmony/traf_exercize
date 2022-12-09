@@ -1,0 +1,10 @@
+{
+  "name": "traffic-analyze",
+  "version": "1.0.0",
+  "dependencies": {
+    "argparse": "^2.0.1",
+    "csv-parser": "^3.0.0",
+    "ip-parse": "^1.0.5",
+    "parse-ip-port": "^1.0.0"
+  }
+}
