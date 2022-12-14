@@ -358,9 +358,11 @@ fs.createReadStream(input_file)
         console.log(util.inspect(out_mutual_transfers_data, false, 3, true));
         console.log('Nodes with more than one mutual transfer (proxies by the task criteria:');
 
-        const proxies = new Map([...out_mutual_transfers_data.entries()].filter(([key, value]) => {
+        const proxies = new Map([...out_mutual_transfers_data.entries()].filter(([mac, protocols_map]) => {
             let partners_num = 0;
-            value.forEach((protocol, nodes, map) => partners_num += nodes.size);
+            protocols_map.forEach((node_entry, protocol, map) => {
+                partners_num += map.get(protocol).size
+            });
             return partners_num > 1;
         }));
         proxies.forEach((value, key, map) => {
