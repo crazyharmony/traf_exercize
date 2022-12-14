@@ -1,6 +1,6 @@
 const fs = require("fs");
 const util = require('util');
-const {ArgumentParser, PARSER} = require('argparse');
+const {ArgumentParser} = require('argparse');
 const CsvParser = require('csv-parser');
 const IpPortParser = require('parse-ip-port');
 
@@ -11,7 +11,7 @@ const headers = ['src_ip_port', 'src_mac', 'dst_ip_port', 'dst_mac', 'is_udp', '
 const top_nodes_list_size = 10;
 const top_networks_list_size = 10;
 
-const ap = new ArgumentParser({
+const ap = ArgumentParser({
     description: 'Traffic report analyzer (onboarding trial task). For functionality spec, ' +
         'see https://github.com/cyboman32/traf_exercise'
 });
@@ -65,7 +65,7 @@ function mac_canonical(mac_address) {
 }
 
 function is_ip_24_subnet(ip_address) {
-    const octets = ip_address.split('.').map((octet, index, array) => {
+    const octets = ip_address.split('.').map(octet => {
         const intValue = parseInt(octet);
         if (isNaN(intValue) || intValue > 255 || intValue < 0) {
             throw new Error(`Cannot parse IPv4: ${ip_address}: wrong hex value`);
@@ -234,10 +234,10 @@ fs.createReadStream(input_file)
             const [src_ip, src_port] = IpPortParser(data.src_ip_port);
             const [dst_ip, dst_port] = IpPortParser(data.dst_ip_port);
 
+            const protocol = get_protocol(data);
+
             data.src_mac = mac_canonical(data.src_mac);
             data.dst_mac = mac_canonical(data.dst_mac);
-
-            const protocol = get_protocol(data);
 
             data = {line: line_number, ...data, src_ip: src_ip, src_port: src_port, dst_ip: dst_ip, dst_port: dst_port,
                 protocol: protocol};
