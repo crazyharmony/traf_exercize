@@ -1,6 +1,6 @@
 # Описание
 
-Решение тестового задания ```ttps://github.com/cyboman32/traf_exercise```.
+Решение тестового задания ```https://github.com/cyboman32/traf_exercise```.
 
 # Требования
 
